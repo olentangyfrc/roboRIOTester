@@ -7,6 +7,7 @@ LED Screen wiring
     LED +(A)    -> Arduino 3.3v
     LED E       -> Adruino 6
     LED RS      -> Arduino 4
+    LED RW      -> Arduino Ground
     LED V0      -> Pot center pin
     LED VDD     -> Arduino 5v
     LED VSS     -> Adruino Ground
