@@ -18,3 +18,8 @@ Signal Pot Wiring
     Pot Outer1  -> Arduino 5v
     Pot Outer2  -> Arduino Ground
     Pot Inner   -> Arduino A0
+
+RIO DIO Connection 1
+    Arduino Ground -> RIO DIO Ground
+    Arduino Port 5 -> RIO DIO Signal
+
