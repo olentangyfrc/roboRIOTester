@@ -14,7 +14,7 @@ LED Screen wiring
     Pot Outer1  -> Arduino 5v
     Pot Outer2  -> Arduino Ground
     
-    Signal Pot Wiring
+Signal Pot Wiring
     Pot Outer1  -> Arduino 5v
     Pot Outer2  -> Arduino Ground
     Pot Inner   -> Arduino A0
