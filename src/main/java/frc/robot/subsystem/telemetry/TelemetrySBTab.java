@@ -40,6 +40,7 @@ public class TelemetrySBTab {
                 .getEntry();
     }
     public void update(){
+        int dio = (int)Math.floor(dioselector.getDouble(0));
         Double ms = telemetry.getPeriodms();
         if (!ms.isInfinite() && !ms.isNaN()) {
             dio0.setDouble(ms);
@@ -47,6 +48,7 @@ public class TelemetrySBTab {
         }
         else {
             logger.info("Counter period is wonky: "+ms);
+        
         }
 
     }
