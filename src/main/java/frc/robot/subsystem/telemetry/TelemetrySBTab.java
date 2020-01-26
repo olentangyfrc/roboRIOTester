@@ -7,9 +7,11 @@
 
 package frc.robot.subsystem.telemetry;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -26,7 +28,10 @@ public class TelemetrySBTab {
         telemetry = te;
         
         tab = Shuffleboard.getTab("Telemetry");
-        dio0 = tab.add("dio0", 0).getEntry();
+        dio0 = tab.add("dio0", 0)
+                .withWidget(BuiltInWidgets.kGraph)
+                .withProperties(Map.of("min", 0, "max", 1))
+                .getEntry();
     }
     public void update(){
         double ms = telemetry.getPeriodms();
