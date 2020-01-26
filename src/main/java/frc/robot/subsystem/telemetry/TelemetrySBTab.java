@@ -9,6 +9,7 @@ package frc.robot.subsystem.telemetry;
 
 import java.util.logging.Logger;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -17,16 +18,19 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  */
 public class TelemetrySBTab {
     public Telemetry telemetry;
-    public ShuffleboardTab tab;
+    private ShuffleboardTab tab;
+    private NetworkTableEntry dio0;
     private static Logger logger = Logger.getLogger(Telemetry.class.getName());
 
     public TelemetrySBTab(Telemetry te){
         telemetry = te;
         
         tab = Shuffleboard.getTab("Telemetry");
+        dio0 = tab.add("dio0", 0).getEntry();
     }
     public void update(){
         double ms = telemetry.getPeriodms();
+        dio0.setDouble(ms);
         // logger.info("Counter period="+ms+"ms");
 
     }
