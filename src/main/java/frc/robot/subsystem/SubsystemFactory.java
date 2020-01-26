@@ -43,6 +43,9 @@ public class SubsystemFactory {
         logger.info("initializing");
 
         botMacAddress = InetAddress.getLocalHost().getHostAddress().trim();
+        logger.info("IP address here is "+botMacAddress);
+        botMacAddress = formatMacAddress(java.net.NetworkInterface.getByInetAddress(InetAddress.getLocalHost()).getHardwareAddress());
+        logger.info("MAC Address here is: "+botMacAddress);
         botMacAddress = footballMacAddress;
 
         logger.info("[" + botMacAddress + "]");
@@ -68,12 +71,40 @@ public class SubsystemFactory {
     }
 
     /**
+     * Formats the byte array representing the mac address as more human-readable form
+     * @param hardwareAddress byte array
+     * @return string of hex bytes separated by colons
+     */
+    private String formatMacAddress(byte[] hardwareAddress) {
+        StringBuilder mac = new StringBuilder(); // StringBuilder is a premature optimization here, but done as best practice
+        for (int k=0;k<hardwareAddress.length;k++) {
+            String hex = Integer.toString((int)hardwareAddress[k],16);
+            if (hex.length() == 1) {  // we want to make all bytes two hex digits 
+                hex = "0"+hex;
+            }
+            mac.append(hex.toUpperCase());
+            mac.append(":");
+        }
+        mac.setLength(mac.length()-1);  // trim off the trailing colon
+        return mac.toString();
+    }
+
+    /**
      * 
      * init subsystems that are common to all bots
      * 
+     * @throws OzoneException
+     * 
      */
 
-    private void initCommon(PortMan portMan) {
+    private void initCommon(PortMan portMan) throws OzoneException {
+        logger.info("Initializing Common");
+        /**
+         * All of the Telemery Stuff goes here
+         */
+        telemetry = new Telemetry();
+        telemetry.init(portMan);
+        displayManager.addTelemetry(telemetry);
         
     }
 
@@ -85,12 +116,6 @@ public class SubsystemFactory {
 
     private void initFootball(PortMan portMan) throws Exception {
         logger.info("Initializing Football");
-        /**
-         * All of the Telemery Stuff goes here
-         */
-        telemetry = new Telemetry();
-        telemetry.init(portMan);
-        displayManager.addTelemetry(telemetry);
 
     }
 }
