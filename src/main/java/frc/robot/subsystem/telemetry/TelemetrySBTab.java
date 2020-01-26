@@ -34,9 +34,14 @@ public class TelemetrySBTab {
                 .getEntry();
     }
     public void update(){
-        double ms = telemetry.getPeriodms();
-        dio0.setDouble(ms);
-        // logger.info("Counter period="+ms+"ms");
+        Double ms = telemetry.getPeriodms();
+        if (!ms.isInfinite() && !ms.isNaN()) {
+            dio0.setDouble(ms);
+            logger.info("Counter period="+ms+"ms");
+        }
+        else {
+            logger.info("Counter period is wonky: "+ms);
+        }
 
     }
 }
