@@ -29,7 +29,6 @@ public class DisplayManager {
     }
         
     public void update(){
-        logger.info("update");
         if (telemetryDisplay != null) {
             telemetryDisplay.update();
         }

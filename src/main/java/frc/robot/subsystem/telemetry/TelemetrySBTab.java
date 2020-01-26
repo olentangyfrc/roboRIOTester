@@ -27,7 +27,7 @@ public class TelemetrySBTab {
     }
     public void update(){
         double ms = telemetry.getPeriodms();
-        logger.info("Counter period="+ms+"ms");
+        // logger.info("Counter period="+ms+"ms");
 
     }
 }
