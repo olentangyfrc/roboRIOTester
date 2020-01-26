@@ -7,12 +7,20 @@
 
 package frc.robot;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.subsystem.DisplayManager;
+import frc.robot.subsystem.PortMan;
+import frc.robot.subsystem.SubsystemFactory;
+import frc.robot.util.OzoneLogger;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,8 +30,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private final Timer m_timer = new Timer();
-  private Counter counter = new Counter(Counter.Mode.kSemiperiod);
+
+  static Logger logger = Logger.getLogger(Robot.class.getName());
+  private static SubsystemFactory subsystemFactory;
+
+  private DisplayManager dManager;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -31,6 +42,33 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    subsystemFactory = SubsystemFactory.getInstance(isReal());
+    OzoneLogger.getInstance().init(Level.FINE);
+    dManager = new DisplayManager();
+
+    try {
+      subsystemFactory.init(dManager, new PortMan());
+
+    } catch (Exception e) {
+      StringWriter writer = new StringWriter();
+      PrintWriter pw  = new PrintWriter(writer);
+      e.printStackTrace(pw);
+      logger.severe(writer.toString());
+    }
+  }
+
+  /**
+   * This function is called every robot packet, no matter the mode. Use
+   * this for items like diagnostics that you want ran during disabled,
+   * autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before
+   * LiveWindow and SmartDashboard integrated updating.
+   */
+  @Override
+  public void robotPeriodic() {
+       CommandScheduler.getInstance().run();
+       dManager.update();
   }
 
   /**
@@ -38,8 +76,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_timer.reset();
-    m_timer.start();
   }
 
   /**
@@ -55,11 +91,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-      // Set up the input channel for the counter
-      counter.setUpSource(0);
-
-      // Set the encoder to count pulse duration from rising edge to falling edge
-      counter.setSemiPeriodMode(true);
 
   }
 
@@ -68,8 +99,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    System.out.println("Counter period="+counter.getPeriod()*1000);
-    //m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
 
