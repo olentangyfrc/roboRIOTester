@@ -7,18 +7,24 @@
 
 package frc.robot.subsystem.led;
 
+import java.lang.System.Logger;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.OzoneException;
 
 public class Led extends SubsystemBase {
-  /**
-   * Creates a new Led.
-   */
-  public Led() {
 
+    private static Logger logger = Logger.getLogger(Led.class.getName());
+
+    public Led() {
+
+    }
+      
+    public void init(Portman portMan) throws OzoneException {
+      logger.entering(Led.class.getName(), "init()");
+
+      logger.exiting(Led.class.getName(), "init()");
+
+    }
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-}
