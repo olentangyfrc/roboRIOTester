@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.logging.Logger;
-
 import frc.robot.OI;
+import frc.robot.subsystem.pwm.PWM;
 import frc.robot.subsystem.telemetry.Telemetry;
 import frc.robot.OzoneException;
 
@@ -29,6 +29,7 @@ public class SubsystemFactory {
      */
 
     private Telemetry telemetry;
+    private PWM pwm;
     
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -139,6 +140,9 @@ public class SubsystemFactory {
 
     private void initZombie(PortMan portMan) throws OzoneException {
         logger.info("Initializing Zombie");
+        pwm = new PWM();
+        pwm.init(portMan);
+        displayManager.addPWM(pwm);
     }
 
     /**

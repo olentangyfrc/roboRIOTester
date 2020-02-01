@@ -38,4 +38,8 @@ public class PWM extends SubsystemBase {
     controller.set(speed);
     logger.info("speedset "+speed);
   }
+
+public static Double getPeriodms() {
+	return null;
+}
 }
