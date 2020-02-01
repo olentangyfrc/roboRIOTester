@@ -7,6 +7,8 @@
 
 package frc.robot.subsystem;
 
+import frc.robot.subsystem.pwm.PWM;
+import frc.robot.subsystem.pwm.PWMSBTab;
 import frc.robot.subsystem.telemetry.Telemetry;
 import frc.robot.subsystem.telemetry.TelemetrySBTab;
 
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class DisplayManager {
     private TelemetrySBTab telemetryDisplay;
-
+    private PWMSBTab pwmDisplay;
     private static Logger logger = Logger.getLogger(DisplayManager.class.getName());
 
     public DisplayManager(){
@@ -32,5 +34,8 @@ public class DisplayManager {
         if (telemetryDisplay != null) {
             telemetryDisplay.update();
         }
+    }
+    public void addPWM(PWM te) {
+        pwmDisplay = new PWMSBTab(te);
     }
 }
