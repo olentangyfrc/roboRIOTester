@@ -8,28 +8,34 @@
 package frc.robot.subsystem.pwm;
 
 import java.util.logging.Logger;
+
+
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OzoneException;
 import frc.robot.subsystem.PortMan;
 
 public class PWM extends SubsystemBase {
     private static Logger logger = Logger.getLogger(PWM.class.getName());
-  {
+
+  Spark controller;
     public PWM() {
-    }
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    setOutput(0.5);
   }
 
-  public void init(Portman portman) throws OzoneException {
+  public void init(PortMan portman) throws OzoneException {
     logger.entering(PWM.class.getName(), "init()");
-
+    controller = new Spark(portman.acquirePort(PortMan.pwm0_label, "PWMTesting"));
     logger.exiting(PWM.class.getName(), "init()");
   }
 
-
-  public double getPeriod() {
+  public void setOutput(double speed) {
+    controller.set(speed);
+    logger.info("speedset "+speed);
   }
 }
