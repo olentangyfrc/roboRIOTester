@@ -8,8 +8,10 @@
 package frc.robot.subsystem.telemetry;
 
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -38,17 +40,25 @@ public class TelemetrySBTab {
                 .withWidget(BuiltInWidgets.kNumberSlider)
                 .withProperties(Map.of("min", 0, "max", 9, "block increment", 1))
                 .getEntry();
+
+        // when the user changes the DIO selector on the dashboard we want to have the subsystem change to that DIO
+        dioselector.addListener(event -> {
+            int newPort = (int)Math.floor(event.value.getDouble());
+            if (newPort != telemetry.getDioPort()) {
+                telemetry.setDioPort(newPort);
+                dioselector.setNumber(newPort);  // put the integer back on there
+            }
+        }, EntryListenerFlags.kUpdate);
     }
+
     public void update(){
-        int dio = (int)Math.floor(dioselector.getDouble(0));
         Double ms = telemetry.getPeriodms();
         if (!ms.isInfinite() && !ms.isNaN()) {
             dio0.setDouble(ms);
-            logger.info("Counter period="+ms+"ms");
+            //logger.log(Level.INFO,"Got period of "+ms+" from port "+telemetry.getDioPort());
         }
         else {
-            logger.info("Counter period is wonky: "+ms);
-        
+            logger.warning("Counter period is wonky: "+ms);
         }
 
     }
