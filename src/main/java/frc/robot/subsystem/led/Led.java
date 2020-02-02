@@ -26,19 +26,20 @@ public class Led extends SubsystemBase {
      
     public void init(PortMan portMan) throws OzoneException {
       logger.entering(Led.class.getName(), "init()");
-      relay0 = new Relay (portMan.acquirePort(PortMan.relay0_label, "LEDrelay"));
+      relay0 = new Relay (portMan.acquirePort(PortMan.relay0_label, "LEDrelay 0"), Relay.Direction.kReverse);
 
-      relay1 = new Relay (portMan.acquirePort(PortMan.relay1_label, "LEDrelay"));
+      relay1 = new Relay (portMan.acquirePort(PortMan.relay1_label, "LEDrelay 1"), Relay.Direction.kReverse);
 
-      relay2 = new Relay (portMan.acquirePort(PortMan.relay2_label, "LEDrelay"));
+      relay2 = new Relay (portMan.acquirePort(PortMan.relay2_label, "LEDrelay 2"), Relay.Direction.kReverse);
 
-      relay3 = new Relay (portMan.acquirePort(PortMan.relay3_label, "LEDrelay"));
+      relay3 = new Relay (portMan.acquirePort(PortMan.relay3_label, "LEDrelay 3"), Relay.Direction.kReverse);
 
       logger.exiting(Led.class.getName(), "init()");
 
     }
     public void periodic() {
-      relay0.setDirection(Direction.kReverse);
+      logger.info("Entering Led periodic");
+      //relay0.setDirection(Direction.kReverse);
       relay0.set(Relay.Value.kOn);
   
     }
