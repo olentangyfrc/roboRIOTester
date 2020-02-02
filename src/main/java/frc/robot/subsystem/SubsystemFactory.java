@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import frc.robot.OI;
+import frc.robot.subsystem.led.Led;
 import frc.robot.subsystem.pwm.PWM;
 import frc.robot.subsystem.telemetry.Telemetry;
 import frc.robot.OzoneException;
@@ -30,6 +31,7 @@ public class SubsystemFactory {
 
     private Telemetry telemetry;
     private PWM pwm;
+    private Led led;
 
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
@@ -58,6 +60,10 @@ public class SubsystemFactory {
 
     public PWM getPWM() {
         return pwm;
+    }
+
+    public Led getLed() {
+        return led;
     }
 
     public void init(DisplayManager dm, PortMan portMan) throws Exception {
@@ -151,6 +157,10 @@ public class SubsystemFactory {
         pwm = new PWM();
         pwm.init(portMan);
         displayManager.addPWM(pwm);
+
+        led = new Led();
+        led.init(portMan);
+        displayManager.addLed(led);
     }
 
     /**

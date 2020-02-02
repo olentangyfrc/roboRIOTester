@@ -13,7 +13,7 @@ public class LedSBTab extends SubsystemBase {
   /**
    * Creates a new LedSBTab.
    */
-  public LedSBTab() {
+  public LedSBTab(Led led) {
 
   }
 
