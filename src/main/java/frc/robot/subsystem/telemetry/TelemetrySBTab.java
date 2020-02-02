@@ -59,6 +59,7 @@ public class TelemetrySBTab {
         }
         else {
             logger.warning("Counter period is wonky: "+ms);
+            dio0.setDouble(-1);
         }
 
     }

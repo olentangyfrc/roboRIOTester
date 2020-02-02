@@ -52,7 +52,7 @@ public class Telemetry extends SubsystemBase {
     public void setDioPort(int dport) {
         // Normally on a real robot we'd first acquire the port, but on the real robot we're not swapping wires around 
         // while the robot is running!
-        logger.log(Level.INFO,"Changing DIO port from [{0}] to [{1}]", new Object[]{dioPort, dport});
+        logger.info("Changing DIO port from "+dioPort+" to "+dport);
         dioPort = dport;
         counter.setUpSource(dioPort);       // not DRY, but nonetheless...
         counter.setSemiPeriodMode(true);

@@ -22,3 +22,8 @@ Signal Pot Wiring 1
 RIO DIO Connection 1
     Arduino Ground -> RIO DIO Ground
     Arduino Port 5 -> RIO DIO Signal
+
+RIO PWM Connection 
+    Arduino Ground  -> RIO PWM Ground
+    Arduino 3       -> RIO PWM Signal
+    

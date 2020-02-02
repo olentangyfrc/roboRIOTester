@@ -68,6 +68,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
        CommandScheduler.getInstance().run();
+       double ms = subsystemFactory.getTelemetry().getPeriodms();
+       double speed = (ms / 1) * 2 - 1; // currently seems 1 ms = 100%, change the divide by 1 if that's not the case
+       subsystemFactory.getPWM().setOutput(speed);
        dManager.update();
   }
 

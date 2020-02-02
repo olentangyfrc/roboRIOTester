@@ -28,7 +28,7 @@ public class PWM extends SubsystemBase {
     @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    setOutput(0.5);
+    // setOutput(0.5);
   }
 
   public void init(PortMan portman) throws OzoneException {
@@ -40,7 +40,7 @@ public class PWM extends SubsystemBase {
 
   public void setOutput(double speed) {
     controller.set(speed);
-    // logger.info("speedset "+speed);
+    logger.info("PWM speed set to "+speed+" on port "+pwmPort);
   }
 
     public int getPwmPort() {
