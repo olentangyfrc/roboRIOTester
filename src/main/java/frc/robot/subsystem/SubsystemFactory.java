@@ -79,7 +79,7 @@ public class SubsystemFactory {
             
             switch (botName) {
                 case "football": initFootball(portMan); break;
-                case "unknown": initFootball(portMan); break;
+                case "unknown": initZombie(portMan); break;
                 case "zombie": initZombie(portMan); break;
                 default: throw new Exception("Unrecognized MAC Address [" + activeMACs + "]");
             }
