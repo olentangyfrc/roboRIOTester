@@ -7,6 +7,7 @@
 
 package frc.robot.subsystem.pwm;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -18,28 +19,45 @@ import frc.robot.subsystem.PortMan;
 public class PWM extends SubsystemBase {
     private static Logger logger = Logger.getLogger(PWM.class.getName());
 
-  Spark controller;
-    public PWM() {
-  }
+    Spark controller;
+    int pwmPort;
 
-  @Override
+    public PWM() {
+    }
+
+    @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    setOutput(0.5);
+    // setOutput(0.5);
   }
 
   public void init(PortMan portman) throws OzoneException {
     logger.entering(PWM.class.getName(), "init()");
-    controller = new Spark(portman.acquirePort(PortMan.pwm0_label, "PWMTesting"));
+    pwmPort = portman.acquirePort(PortMan.pwm0_label, "PWMTesting");
+    controller = new Spark(pwmPort);
     logger.exiting(PWM.class.getName(), "init()");
   }
 
   public void setOutput(double speed) {
     controller.set(speed);
-    logger.info("speedset "+speed);
+    logger.info("PWM speed set to "+speed+" on port "+pwmPort);
   }
 
-public static Double getPeriodms() {
-	return null;
-}
+    public int getPwmPort() {
+        return pwmPort;
+    }
+
+    public void setPwmPort(int pport) {
+        // Normally on a real robot we'd first acquire the port, but on the real robot we're not swapping wires around 
+        // while the robot is running!
+        logger.log(Level.INFO,"Changing PWM port from "+pwmPort+" to "+pport);
+        pwmPort = pport;
+        setOutput(0); // stop existing output
+        controller = new Spark(pwmPort);
+    }
+
+    public double getOutput() {
+        return controller.getSpeed();
+    }
+
 }

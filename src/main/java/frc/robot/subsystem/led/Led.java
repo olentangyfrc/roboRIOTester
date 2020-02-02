@@ -7,10 +7,11 @@
 
 package frc.robot.subsystem.led;
 
-import java.lang.System.Logger;
+import java.util.logging.Logger;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.OzoneException;
+import frc.robot.subsystem.PortMan;
 
 public class Led extends SubsystemBase {
 
@@ -20,7 +21,7 @@ public class Led extends SubsystemBase {
 
     }
       
-    public void init(Portman portMan) throws OzoneException {
+    public void init(PortMan portMan) throws OzoneException {
       logger.entering(Led.class.getName(), "init()");
 
       logger.exiting(Led.class.getName(), "init()");

@@ -30,7 +30,7 @@ public class SubsystemFactory {
 
     private Telemetry telemetry;
     private PWM pwm;
-    
+
     private SubsystemFactory() {
         // private constructor to enforce Singleton pattern
         botName = "unknown";
@@ -50,6 +50,14 @@ public class SubsystemFactory {
         }
 
         return me;
+    }
+
+    public Telemetry getTelemetry() {
+        return telemetry;
+    }
+
+    public PWM getPWM() {
+        return pwm;
     }
 
     public void init(DisplayManager dm, PortMan portMan) throws Exception {
@@ -79,7 +87,7 @@ public class SubsystemFactory {
             
             switch (botName) {
                 case "football": initFootball(portMan); break;
-                case "unknown": initFootball(portMan); break;
+                case "unknown": initZombie(portMan); break;
                 case "zombie": initZombie(portMan); break;
                 default: throw new Exception("Unrecognized MAC Address [" + activeMACs + "]");
             }
