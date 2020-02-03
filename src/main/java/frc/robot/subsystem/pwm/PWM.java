@@ -40,7 +40,7 @@ public class PWM extends SubsystemBase {
 
   public void setOutput(double speed) {
     controller.set(speed);
-    logger.info("PWM speed set to "+speed+" on port "+pwmPort);
+    //logger.info("PWM speed set to "+speed+" on port "+pwmPort);
   }
 
     public int getPwmPort() {
