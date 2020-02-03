@@ -26,22 +26,35 @@ public class Led extends SubsystemBase {
      
     public void init(PortMan portMan) throws OzoneException {
       logger.entering(Led.class.getName(), "init()");
-      relay0 = new Relay (portMan.acquirePort(PortMan.relay0_label, "LEDrelay 0"), Relay.Direction.kReverse);
+      relay0 = new Relay (portMan.acquirePort(PortMan.relay0_label, "LEDrelay 0"),Direction.kBoth);
 
-      relay1 = new Relay (portMan.acquirePort(PortMan.relay1_label, "LEDrelay 1"), Relay.Direction.kReverse);
+      relay1 = new Relay (portMan.acquirePort(PortMan.relay1_label, "LEDrelay 1"));
 
-      relay2 = new Relay (portMan.acquirePort(PortMan.relay2_label, "LEDrelay 2"), Relay.Direction.kReverse);
+      relay2 = new Relay (portMan.acquirePort(PortMan.relay2_label, "LEDrelay 2"));
 
-      relay3 = new Relay (portMan.acquirePort(PortMan.relay3_label, "LEDrelay 3"), Relay.Direction.kReverse);
+      relay3 = new Relay (portMan.acquirePort(PortMan.relay3_label, "LEDrelay 3"));
 
       logger.exiting(Led.class.getName(), "init()");
 
     }
     public void periodic() {
-      logger.info("Entering Led periodic");
-      //relay0.setDirection(Direction.kReverse);
-      relay0.set(Relay.Value.kOn);
-  
     }
+
+    public void setRelay(int selectValue) {
+        if (selectValue == 0) {
+            relay0.setDirection(Direction.kReverse);
+            relay0.set(Relay.Value.kOff);
+        }
+        else {
+            if (selectValue == 1) {
+                relay0.setDirection(Direction.kForward);
+            }
+            else {
+                relay0.setDirection(Direction.kReverse);
+            }
+            relay0.set(Relay.Value.kOn);
+        }
+    }
+
   }
 

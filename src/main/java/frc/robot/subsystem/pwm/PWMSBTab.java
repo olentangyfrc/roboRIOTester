@@ -26,7 +26,7 @@ public class PWMSBTab {
     private ShuffleboardTab tab;
     private NetworkTableEntry pwm0;
     private NetworkTableEntry pwmselector;
-    private static Logger logger = Logger.getLogger(PWM.class.getName());
+    private static Logger logger = Logger.getLogger(PWMSBTab.class.getName());
 
     public PWMSBTab(PWM te){
         pwm = te;
@@ -54,7 +54,7 @@ public class PWMSBTab {
         Double speed = pwm.getOutput();
         if (!speed.isInfinite() && !speed.isNaN()) {
             pwm0.setDouble(speed);
-            logger.log(Level.INFO,"Got speed of "+speed+" from port "+pwm.getPwmPort());
+            //logger.log(Level.INFO,"Got speed of "+speed+" from port "+pwm.getPwmPort());
         }
         else {
             logger.warning("PWM Speed is wonky: "+speed);
