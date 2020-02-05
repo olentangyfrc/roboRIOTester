@@ -8,6 +8,7 @@
 
 package frc.robot.subsystem.telemetry;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +26,9 @@ public class Telemetry extends SubsystemBase {
     private Counter counter = new Counter(Counter.Mode.kSemiperiod);
     private int dioPort;
 
+    private int analogPort;
+    private AnalogInput analogIn;
+
     public Telemetry() {
 
     }
@@ -38,10 +42,12 @@ public class Telemetry extends SubsystemBase {
         // Set up the input channel for the counter
         dioPort = portMan.acquirePort(PortMan.digital0_label, "Telemetry.counter");
         counter.setUpSource(dioPort);
-
         // Set the encoder to count pulse duration from rising edge to falling edge
         counter.setSemiPeriodMode(true);
 
+        analogPort = portMan.acquirePort(PortMan.analog0_label, "Telemetry.analog");
+        analogIn = new AnalogInput(analogPort);
+        
         logger.exiting(Telemetry.class.getName(), "init()");
     }
 
@@ -60,6 +66,22 @@ public class Telemetry extends SubsystemBase {
 
     public double getPeriodms() {
         return counter.getPeriod()*1000;
+    }
+
+    public int getAnalogPort() {
+        return analogPort;
+    }
+
+    public void setAnalogPort(int aport) {
+        analogIn.close();
+        analogPort = aport;
+        analogIn = new AnalogInput(analogPort);
+        analogIn.setOversampleBits(2);
+        analogIn.setAverageBits(2);
+    }
+
+    public double getVolts() {
+        return analogIn.getAverageVoltage();
     }
 
 }

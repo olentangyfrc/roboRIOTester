@@ -22,7 +22,6 @@ public class LedSBTab extends SubsystemBase {
     private Led led;
     private ShuffleboardTab tab;
     private NetworkTableEntry relay0;
-    private ComplexWidget widget0;
     private SendableChooser<Integer> choice0;
     private Integer prevSelected0;
     private static Logger logger = Logger.getLogger(LedSBTab.class.getName());
@@ -40,7 +39,7 @@ public class LedSBTab extends SubsystemBase {
         choice0.addOption("Rev",-1);
         choice0.setName("Relay 0");
 
-        widget0 = tab.add(choice0)
+        tab.add(choice0)
                 .withWidget(BuiltInWidgets.kComboBoxChooser);
 
 
