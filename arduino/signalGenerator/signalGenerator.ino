@@ -1,5 +1,6 @@
 int signalPin = 5;      // Connection to DIO on roboRIO
 int potPin = 0;         // Analog in for user control 
+int voltPin = 1;        // Analog in for reading voltage, i.e. from the roboRIO 5v rails
 int dutyCycle = 32;     // duty cycle as 0-255 
 int prevDuty = 0;       // so we know when it changed
 float pct;              // to convert duty cycle to a percentage
@@ -7,6 +8,8 @@ int prettyPWM = -1;     // PWM value for display
 unsigned long lastUpdateTime = 0;   // avoid displaying/writing too often
 unsigned long curLoopTime = 0;      // this loop time
 long sinceUpdate = 0;               // microseconds since previous display update
+
+float volts;
 
 byte pwmInterrupt = 1; // equates to pin 3!
 // These are defined volatile because they're used in interrupt service routines
@@ -55,6 +58,10 @@ void loop() {
   dutyCycle = analogRead(potPin)/4;  // divide by 4 because input is 0-1023 and pwm wants 0-255
   analogWrite(signalPin, dutyCycle); // note this is really a pwm output
 
+  // read the voltage on the voltage pin
+  volts = analogRead(voltPin) * (5.0 / 1023.0);
+  //volts = round(volts * 100) / 100;
+
   // Update the displays but don't do too frequently to avoid flicker & too much log output 
   curLoopTime = micros();   
   sinceUpdate = curLoopTime - lastUpdateTime;
@@ -78,6 +85,9 @@ void loop() {
     lcd.print("DC: ");
     lcd.print((int)pct);
     lcd.print("%  ");
+    lcd.setCursor(10,0);
+    lcd.print(volts);
+    lcd.print("v");
     lcd.setCursor(0,1);
     lcd.print("PWM: ");
     lcd.print(prettyPWM);
