@@ -1,15 +1,15 @@
 LCD Screen Wiring
-// LCD = LiquidCrystalDisplay
-// 16 Columns X 2 Rows
+// LCD = LiquidCrystalDisplay //
+// 16 Columns X 2 Rows //
     LCD D4      -> Arduino 10
     LCD D5      -> Arduino 11
     LCD D6      -> Arduino 12
     LCD D7      -> Arduino 13
-    LED -(K)    -> Adruino Ground
+    LED -(K)    -> Arduino Ground
     LED +(A)    -> Arduino 3.3v
-    LCD E       -> Adruino 6
+    LCD E       -> Arduino 6
     LCD RS      -> Arduino 4
-    LCD R/W      -> Arduino Ground
+    LCD R/W     -> Arduino Ground
     LCD V0      -> Trim Pot Center Pin
     LCD VDD     -> Arduino 5v
     LCD VSS     -> Adruino Ground
@@ -28,7 +28,7 @@ RIO DIO Connection 1
 RIO PWM Connection 
     Arduino Ground  -> RIO PWM Ground
     Arduino 3       -> RIO PWM Signal
-    
+
 Voltage Read
     RIO Voltage Pin -> Voltage Divider
     Voltage Divider -> A1
