@@ -60,6 +60,7 @@ void loop() {
 
   // read the voltage on the voltage pin
   volts = analogRead(voltPin) * (5.0 / 1023.0);
+  volts = volts * 3.17; // adjust for voltage divider
   //volts = round(volts * 100) / 100;
 
   // Update the displays but don't do too frequently to avoid flicker & too much log output 
@@ -85,7 +86,8 @@ void loop() {
     lcd.print("DC: ");
     lcd.print((int)pct);
     lcd.print("%  ");
-    lcd.setCursor(10,0);
+    lcd.setCursor(9,0);
+    lcd.print("~");
     lcd.print(volts);
     lcd.print("v");
     lcd.setCursor(0,1);
