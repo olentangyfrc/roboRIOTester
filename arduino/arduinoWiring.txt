@@ -1,29 +1,39 @@
-LED Screen Wiring
-    LED D4      -> Arduino 10
-    LED D5      -> Arduino 11
-    LED D6      -> Arduino 12
-    LED D7      -> Arduino 13
-    LED -(K)    -> Adruino Ground
+LCD Screen Wiring
+    LCD = LiquidCrystalDisplay
+    16 Columns X 2 Rows
+    LCD D4      -> Arduino 10
+    LCD D5      -> Arduino 11
+    LCD D6      -> Arduino 12
+    LCD D7      -> Arduino 13
+    LED -(K)    -> Arduino Ground
     LED +(A)    -> Arduino 3.3v
-    LED E       -> Adruino 6
-    LED RS      -> Arduino 4
-    LED RW      -> Arduino Ground
-    LED V0      -> Pot Center Pin
-    LED VDD     -> Arduino 5v
-    LED VSS     -> Adruino Ground
-    Pot Outer1  -> Arduino 5v
-    Pot Outer2  -> Arduino Ground
+    LCD E       -> Arduino 6
+    LCD RS      -> Arduino 4
+    LCD R/W     -> Arduino Ground
+    LCD V0      -> Trim Pot Center Pin
+    LCD VDD     -> Arduino 5v
+    LCD VSS     -> Adruino Ground
+    Trim Pot Outer1  -> Arduino 5v
+    Trim Pot Outer2  -> Arduino Ground
     
 Signal Pot Wiring 1
     Pot Outer1  -> Arduino 5v
     Pot Outer2  -> Arduino Ground
-    Pot Inner   -> Arduino A0
+    Pot Inner   -> Arduino A0 & RIO AnalogIn
 
 RIO DIO Connection 1
     Arduino Ground -> RIO DIO Ground
     Arduino Port 5 -> RIO DIO Signal
 
-RIO PWM Connection 
+RIO PWM Connection
     Arduino Ground  -> RIO PWM Ground
     Arduino 3       -> RIO PWM Signal
-    
+
+Voltage Read
+    RIO Voltage Pin -> Voltage Divider
+    Voltage Divider -> A1
+
+LED/RELAY
+    RELAY 0 FORWARD -> Green LED+
+    RELAY 0 REVERSE -> Yellow LED+
+    RELAY 0 GROUND  -> Common BreadBoard Ground
