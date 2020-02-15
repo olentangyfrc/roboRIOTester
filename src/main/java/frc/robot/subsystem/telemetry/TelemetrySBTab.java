@@ -34,6 +34,7 @@ public class TelemetrySBTab {
     private SendableChooser<Integer> choseAPort;
     private SendableChooser<Integer> choseDPort;
     private Integer prevAnalog;
+    private Integer prevDio;
 // keep changes with DPort
 
     private static Logger logger = Logger.getLogger(Telemetry.class.getName());
@@ -55,7 +56,6 @@ public class TelemetrySBTab {
                 .withWidget(BuiltInWidgets.kGraph)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
-    private void setupSBDport() {
         choseDPort = new SendableChooser<Integer>();
         choseDPort.setDefaultOption("0", 0);
         choseDPort.addOption("1",1);
@@ -67,6 +67,7 @@ public class TelemetrySBTab {
         choseDPort.addOption("7",7);
         choseDPort.addOption("8",8);
         choseDPort.addOption("9",9);
+        prevDio = 0;
     }
 
     /**
@@ -95,6 +96,13 @@ public class TelemetrySBTab {
             telemetry.setAnalogPort(newPort);
             prevAnalog = newPort;
         }
+        newPort = choseDPort.getSelected();
+        if (newPort != prevDio) {
+            telemetry.setDioPort(newPort);
+            prevDio = newPort;
+    }
+    
+        
     }
 
     /**
