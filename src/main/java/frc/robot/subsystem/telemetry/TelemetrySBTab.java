@@ -67,6 +67,9 @@ public class TelemetrySBTab {
         choseDPort.addOption("7",7);
         choseDPort.addOption("8",8);
         choseDPort.addOption("9",9);
+        SendableRegistry.setName(choseDPort, "DIO Port");
+        tab.add(choseDPort)
+                .withWidget(BuiltInWidgets.kComboBoxChooser);
         prevDio = 0;
     }
 
