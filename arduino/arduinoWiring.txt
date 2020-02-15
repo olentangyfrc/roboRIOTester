@@ -1,6 +1,6 @@
 LCD Screen Wiring
-// LCD = LiquidCrystalDisplay //
-// 16 Columns X 2 Rows //
+    LCD = LiquidCrystalDisplay
+    16 Columns X 2 Rows
     LCD D4      -> Arduino 10
     LCD D5      -> Arduino 11
     LCD D6      -> Arduino 12
@@ -25,7 +25,7 @@ RIO DIO Connection 1
     Arduino Ground -> RIO DIO Ground
     Arduino Port 5 -> RIO DIO Signal
 
-RIO PWM Connection 
+RIO PWM Connection
     Arduino Ground  -> RIO PWM Ground
     Arduino 3       -> RIO PWM Signal
 
