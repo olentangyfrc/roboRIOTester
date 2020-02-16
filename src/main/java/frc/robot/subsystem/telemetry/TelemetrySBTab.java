@@ -28,13 +28,14 @@ public class TelemetrySBTab {
     public Telemetry telemetry;
     private ShuffleboardTab tab;
     private NetworkTableEntry dio0;
-    private NetworkTableEntry dioselector;
 
     private NetworkTableEntry aPortVolts;
     private NetworkTableEntry selectedAPort;
     private SendableChooser<Integer> choseAPort;
+    private SendableChooser<Integer> choseDPort;
     private Integer prevAnalog;
-
+    private Integer prevDio;
+// keep changes with DPort
 
     private static Logger logger = Logger.getLogger(Telemetry.class.getName());
 
@@ -55,19 +56,21 @@ public class TelemetrySBTab {
                 .withWidget(BuiltInWidgets.kGraph)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
-         dioselector = tab.add("dioselector", 0)
-                .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("min", 0, "max", 9, "block increment", 1))
-                .getEntry();
-
-        // when the user changes the DIO selector on the dashboard we want to have the subsystem change to that DIO
-        dioselector.addListener(event -> {
-            int newPort = (int)Math.floor(event.value.getDouble());
-            if (newPort != telemetry.getDioPort()) {
-                telemetry.setDioPort(newPort);
-                dioselector.setNumber(newPort);  // put the integer back on there
-            }
-        }, EntryListenerFlags.kUpdate);
+        choseDPort = new SendableChooser<Integer>();
+        choseDPort.setDefaultOption("0", 0);
+        choseDPort.addOption("1",1);
+        choseDPort.addOption("2",2);
+        choseDPort.addOption("3",3);
+        choseDPort.addOption("4",4);
+        choseDPort.addOption("5",5);
+        choseDPort.addOption("6",6);
+        choseDPort.addOption("7",7);
+        choseDPort.addOption("8",8);
+        choseDPort.addOption("9",9);
+        SendableRegistry.setName(choseDPort, "DIO Port");
+        tab.add(choseDPort)
+                .withWidget(BuiltInWidgets.kComboBoxChooser);
+        prevDio = 0;
     }
 
     /**
@@ -96,6 +99,13 @@ public class TelemetrySBTab {
             telemetry.setAnalogPort(newPort);
             prevAnalog = newPort;
         }
+        newPort = choseDPort.getSelected();
+        if (newPort != prevDio) {
+            telemetry.setDioPort(newPort);
+            prevDio = newPort;
+    }
+    
+        
     }
 
     /**
