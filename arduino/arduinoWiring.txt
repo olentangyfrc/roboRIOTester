@@ -30,10 +30,19 @@ RIO PWM Connection
     Arduino 3       -> RIO PWM Signal
 
 Voltage Read
-    RIO Voltage Pin -> Voltage Divider
-    Voltage Divider -> A1
+    RIO Voltage Pin   -> Voltage Divider Input
+    Arduino Analog A1 -> Voltage Divider Output
+    RIO Ground        -> Voltage Divider Ground
+    Arduino Ground    -> Voltage Divider Ground
 
 LED/RELAY
     RELAY 0 FORWARD -> Green LED+
     RELAY 0 REVERSE -> Yellow LED+
     RELAY 0 GROUND  -> Common BreadBoard Ground
+
+Voltage Divider
+
+                          Output Voltage
+                               /|\
+                                |
+Input Voltage -> 10K Resistor --+--> 5K Resistor ---> Ground 
