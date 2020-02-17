@@ -93,7 +93,10 @@ public class TelemetrySBTab {
         prevAnalog = 0;
     }
 
-    public void periodic() {
+    /**
+     * Update the shuffleboard widgets with current DIO and Analog In values
+     */
+    public void update(){
         Integer newPort = choseAPort.getSelected();
         if (newPort != prevAnalog) {
             telemetry.setAnalogPort(newPort);
@@ -103,15 +106,8 @@ public class TelemetrySBTab {
         if (newPort != prevDio) {
             telemetry.setDioPort(newPort);
             prevDio = newPort;
-    }
-    
-        
-    }
+        }
 
-    /**
-     * Update the shuffleboard widgets with current DIO and Analog In values
-     */
-    public void update(){
         Double ms = telemetry.getPeriodms();
         if (!ms.isInfinite() && !ms.isNaN()) {
             dio0.setDouble(ms);
