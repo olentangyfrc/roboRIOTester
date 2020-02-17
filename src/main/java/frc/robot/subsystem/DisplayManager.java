@@ -37,6 +37,9 @@ public class DisplayManager {
         if (telemetryDisplay != null) {
             telemetryDisplay.update();
         }
+        if (pwmDisplay != null) {
+            pwmDisplay.update();
+        }
     }
     public void addPWM(PWM te) {
         pwmDisplay = new PWMSBTab(te);

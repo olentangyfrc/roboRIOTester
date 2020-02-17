@@ -1,6 +1,6 @@
 int signalPin = 5;      // Connection to DIO on roboRIO
 int potPin = 0;         // Analog in for user control 
-int voltPin = 1;        // Analog in for reading voltage, i.e. from the roboRIO 5v rails
+int voltPin = A1;        // Analog in for reading voltage, i.e. from the roboRIO 5v rails
 int dutyCycle = 32;     // duty cycle as 0-255 
 int prevDuty = 0;       // so we know when it changed
 float pct;              // to convert duty cycle to a percentage
@@ -11,7 +11,7 @@ long sinceUpdate = 0;               // microseconds since previous display updat
 
 float volts;
 
-byte pwmInterrupt = 1; // equates to pin 3!
+byte pwmInterrupt = digitalPinToInterrupt(3); // equates to pin 3!
 // These are defined volatile because they're used in interrupt service routines
 volatile int pwmValue = 0;
 volatile int pwmRiseTime = 0;
@@ -24,6 +24,8 @@ LiquidCrystal lcd(4, 6, 10, 11, 12, 13);
 void setup() {
   Serial.begin(115200);  // This is much better than using 9600 as many examples show! (do the math on how slow 9600 is!)
   pinMode(signalPin, OUTPUT);
+  pinMode(3, INPUT);
+  pinMode(voltPin, INPUT);
   lcd.begin(16,2);
   lcd.clear();
   //TCCR0B = TCCR0B & B11111000 | B00000001; // for PWM frequency of 62500.00 Hz
@@ -31,7 +33,8 @@ void setup() {
   //TCCR0B = TCCR0B & B11111000 | B00000011; // for PWM frequency of 976.56 Hz (The DEFAULT)
   //TCCR0B = TCCR0B & B11111000 | B00000100; // for PWM frequency of 244.14 Hz
   //TCCR0B = TCCR0B & B11111000 | B00000101; // for PWM frequency of 61.04 Hz  
- 
+
+  interrupts();
   //Attach an interrupt to the rising signal on our pwm input pin
   attachInterrupt(pwmInterrupt, catchRising, RISING);
   

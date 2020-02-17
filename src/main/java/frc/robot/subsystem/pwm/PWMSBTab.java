@@ -17,6 +17,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 
 /**
  * Add your docs here.
@@ -28,6 +30,11 @@ public class PWMSBTab {
     private NetworkTableEntry pwmselector;
     private static Logger logger = Logger.getLogger(PWMSBTab.class.getName());
 
+    private SendableChooser<Integer> chosePWMPort;
+    private Integer prevAnalog;
+    private Integer prevPWM;
+
+
     public PWMSBTab(PWM te){
         pwm = te;
         
@@ -36,21 +43,29 @@ public class PWMSBTab {
                 .withWidget(BuiltInWidgets.kGraph)
                 .withProperties(Map.of("min", 0, "max", 1))
                 .getEntry();
-         pwmselector = tab.add("pwmselector", 0)
-                .withWidget(BuiltInWidgets.kNumberSlider)
-                .withProperties(Map.of("min", 0, "max", 9, "block increment", 1))
-                .getEntry();
-        // when the user changes the DIO selector on the dashboard we want to have the subsystem change to that DIO
-        pwmselector.addListener(event -> {
-            int newPort = (int)Math.floor(event.value.getDouble());
-            if (newPort != pwm.getPwmPort()) {
-                pwm.setPwmPort(newPort);
-                pwmselector.setNumber(newPort);  // put the integer back on there
-            }
-        }, EntryListenerFlags.kUpdate);
-
+        chosePWMPort = new SendableChooser<Integer>();
+        chosePWMPort.setDefaultOption("0", 0);
+        chosePWMPort.addOption("1",1);
+        chosePWMPort.addOption("2",2);
+        chosePWMPort.addOption("3",3);
+        chosePWMPort.addOption("4",4);
+        chosePWMPort.addOption("5",5);
+        chosePWMPort.addOption("6",6);
+        chosePWMPort.addOption("7",7);
+        chosePWMPort.addOption("8",8);
+        chosePWMPort.addOption("9",9);
+        SendableRegistry.setName(chosePWMPort, "PWM Port");
+        tab.add(chosePWMPort)
+                .withWidget(BuiltInWidgets.kComboBoxChooser);
+        prevPWM = 0;
     }
     public void update(){
+        int newPort = chosePWMPort.getSelected();
+        if (newPort != prevPWM) {
+            pwm.setPwmPort(newPort);
+            prevPWM = newPort;
+        }
+
         Double speed = pwm.getOutput();
         if (!speed.isInfinite() && !speed.isNaN()) {
             pwm0.setDouble(speed);
