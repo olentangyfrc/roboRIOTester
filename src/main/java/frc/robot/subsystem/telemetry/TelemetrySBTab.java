@@ -67,6 +67,7 @@ public class TelemetrySBTab {
         choseDPort.addOption("7",7);
         choseDPort.addOption("8",8);
         choseDPort.addOption("9",9);
+        // DPort is a digital output port used on Arduino
         SendableRegistry.setName(choseDPort, "DIO Port");
         tab.add(choseDPort)
                 .withWidget(BuiltInWidgets.kComboBoxChooser);
@@ -87,6 +88,7 @@ public class TelemetrySBTab {
         choseAPort.addOption("1",1);
         choseAPort.addOption("2",2);
         choseAPort.addOption("3",3);
+        // APort is analog output port used on Arduino
         SendableRegistry.setName(choseAPort, "Analog Port");
         tab.add(choseAPort)
                 .withWidget(BuiltInWidgets.kComboBoxChooser);

@@ -11,9 +11,9 @@ long sinceUpdate = 0;               // microseconds since previous display updat
 
 float volts;
 
-byte pwmInterrupt = 1; // equates to pin 3!
+volatile int pwmInterrupt = digitalPinToInterrupt(3); // equates to pin 3!
 // These are defined volatile because they're used in interrupt service routines
-volatile int pwmValue = 0;
+volatile int pwmValue = 30;
 volatile int pwmRiseTime = 0;
 
 #include <LiquidCrystal.h>
@@ -33,14 +33,14 @@ void setup() {
   //TCCR0B = TCCR0B & B11111000 | B00000101; // for PWM frequency of 61.04 Hz  
  
   //Attach an interrupt to the rising signal on our pwm input pin
-  attachInterrupt(pwmInterrupt, catchRising, RISING);
+  attachInterrupt(digitalPinToInterrupt(3), catchRising, RISING);
   
 }
 
 // Interrupt service routine to record when pin goes high
 void catchRising() {
   // set up to catch the falling transition
-  attachInterrupt(pwmInterrupt, catchFalling, FALLING);
+  attachInterrupt(digitalPinToInterrupt(3), catchFalling, FALLING);
   // record when this time was 
   pwmRiseTime = micros();
 }
@@ -48,8 +48,9 @@ void catchRising() {
 // Interrupt service routine to record when pin goes low
 void catchFalling() {
   // set up to catch the next rising transition
-  attachInterrupt(pwmInterrupt, catchRising, RISING);
+  attachInterrupt(digitalPinToInterrupt(3), catchRising, RISING);
   pwmValue = micros() - pwmRiseTime;
+  pwmValue = 7;
 }
 
 // put your main code here, to run repeatedly:
