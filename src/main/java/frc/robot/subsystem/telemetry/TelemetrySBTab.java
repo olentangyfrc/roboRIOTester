@@ -37,7 +37,7 @@ public class TelemetrySBTab {
     private Integer prevAnalog;
     private Integer prevDio;
 // keep changes with DPort
-// Analog and Digital Output Ports should always have the same strings based to there port.
+// Analog and Digital Output Ports should always have the same strings based to their port.
 
     private static Logger logger = Logger.getLogger(Telemetry.class.getName());
 
@@ -69,6 +69,7 @@ public class TelemetrySBTab {
         choseDPort.addOption("7",7);
         choseDPort.addOption("8",8);
         choseDPort.addOption("9",9);
+        // 10 DPorts 0 is default option and the other nine are the rest of the Digital Output Ports
         // DPort is a digital output port used on Arduino
         SendableRegistry.setName(choseDPort, "DIO Port");
         tab.add(choseDPort)
