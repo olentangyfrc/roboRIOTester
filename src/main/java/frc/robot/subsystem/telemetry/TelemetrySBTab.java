@@ -37,6 +37,7 @@ public class TelemetrySBTab {
     private Integer prevAnalog;
     private Integer prevDio;
 // keep changes with DPort
+// Analog and Digital Output Ports should always have the same strings based to there port.
 
     private static Logger logger = Logger.getLogger(Telemetry.class.getName());
 
