@@ -31,6 +31,7 @@ public class TelemetrySBTab {
 
     private NetworkTableEntry aPortVolts;
     private NetworkTableEntry selectedAPort;
+    private NetworkTableEntry selectedDPort;
     private SendableChooser<Integer> choseAPort;
     private SendableChooser<Integer> choseDPort;
     private Integer prevAnalog;
